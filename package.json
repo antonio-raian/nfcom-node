@@ -1,0 +1,31 @@
+{
+  "name": "nfcom-node",
+  "version": "1.0.0",
+  "description": "Biblioteca para geração, assinatura e envio de NFCom",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix"
+  },
+  "keywords": [
+    "nfcom",
+    "nota",
+    "fiscal",
+    "comunicação"
+  ],
+  "author": "Antonio Mendes",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.12.2",
+    "xml-crypto": "^6.1.2",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.4.0",
+    "@types/xml2js": "^0.4.14",
+    "typescript": "^5.9.2"
+  }
+}

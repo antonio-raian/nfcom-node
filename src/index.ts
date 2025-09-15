@@ -7,7 +7,6 @@
 // export * from './interfaces/fileHandler.interface';
 
 import { NFCom } from "./entities/nfcom.entity";
-import { FileHandler } from "./services/fileHandler.service";
 import { SOAPClient } from "./services/soapClient.service";
 import { XMLSigner } from "./services/xmlSigner.service";
 import * as fs from 'fs';
@@ -32,7 +31,7 @@ function main() {
         },
         ide: {
           cUF: '35',
-          tpAmb: '1',
+          tpAmb: '2',
           mod: '62',
           serie: '1',
           nNF: '81810',
@@ -161,10 +160,17 @@ function main() {
   };
 
   const xml = nfcom.createXML(NFComExample);
-  const fileHandler = new FileHandler();
   console.log('XML criado', xml);
-  nfcom.signXML(xml, "//*[local-name(.)='infNFCom']").then(signedXmlPath => {
-    console.log('XML assinado', signedXmlPath);
+  nfcom.signXML(xml, "//*[local-name(.)='infNFCom']").then(signedXml => {
+    const sentXml = nfcom.sendSignedXML(signedXml, 'homologacao').then(sentXml => {
+      return sentXml
+    }).catch(error => {
+      console.error('Erro ao enviar XML:', error);
+    });
+    console.log('XML enviado', sentXml);
+    return signedXml
+  }).catch(error => {
+    console.error('Erro ao assinar XML:', error);
   });
 }
 
